@@ -32,13 +32,13 @@ typedef struct {
 
 
 User* createUser(char*);
-void printUser(User*);
+void printUser(char*);
 Table* createTable(char*);
 void printTable(Table*);
 Card* createCard(char*);
 void addUserToTable(User*, Table*);
 void addCardToTable(Card*, Table*);
-void addUserToCard(User*, Card*);
+void addUserToCard(char*, char*);
 void changeStatusDoing(Card*);
 void changeStatusDone(Card*);
 void changeStatusTodo(Card*);

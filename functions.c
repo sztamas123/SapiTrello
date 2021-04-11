@@ -1,22 +1,37 @@
 //
 // Created by tamas on 09.04.2021.
 //
+#include <string.h>
 #include "functions.h"
 
+User USERS[100];
+Card CARDS[100];
+Table TABLES[25];
+int userCount = 0;
+int cardCount = 0;
+int tableCount = 0;
 
-User * createUser(char* username){
+User* createUser(char* username){
     User* user = (User*)calloc(1,sizeof(User));
     user->username = (char*)calloc(50,sizeof(char));
     srand(time(0));
-    user->id = rand() % 100;
-    user->username = username;
+    USERS[userCount].username = username;
+    USERS[userCount].id = rand() % 100;
+    userCount++;
 }
 
-void printUser(User* user){
-    printf("%s", user->username);
-    printf("\n");
-    printf("%d", user->id);
-    printf("\n");
+void printUser(char* username){
+    for (int i = 0; i < 100; ++i) {
+        if(strcmp(USERS[i].username, username) == 0){
+            printf("Name: %s ", USERS[i].username);
+            printf("\n");
+            printf("ID: %i ", USERS[i].id);
+            printf("\n");
+            break;
+        }
+        return;
+    }
+
 }
 
 Table* createTable(char* tableName){
@@ -35,6 +50,13 @@ void addUserToTable(User* user, Table* table){
     table->users[table->numberOfUsers].username = user->username;
     table->users[table->numberOfUsers].id = user->id;
     table->numberOfUsers++;
+}
+
+void addCardToTable(Card* card, Table* table){
+    table->cards[table->numberOfCards].description = card->description;
+    table->cards[table->numberOfCards].status = card->status;
+    table->cards[table->numberOfCards].id = card->id;
+    table->numberOfCards++;
 }
 
 void printTable(Table* table){
@@ -98,21 +120,20 @@ void getCardStatus(Card* card){
 }
 
 
-void addCardToTable(Card* card, Table* table){
-    table->cards[table->numberOfCards].description = card->description;
-    table->cards[table->numberOfCards].status = card->status;
-    table->numberOfCards++;
-
-}
-
-
-
-void addUserToCard(User* user, Card* card){
-    if(card->user->id == NULL){
-        card->user->username = user->username;
-        card->user->id = user->id;
+void addUserToCard(char* user, char* card){
+    User* tempUser;
+    for (int i = 0; i < 100; ++i) {
+        if(strcmp(USERS[i].username, user) == 0){
+            tempUser->username = USERS[i].username;
+            tempUser->id = USERS[i].id;
+        }
     }
-    return;
+    for (int i = 0; i < 100; ++i) {
+        if(strcmp(CARDS[i].description, card) == 0 && CARDS[i].id == 0){
+            CARDS[i].user->username = tempUser->username;
+            CARDS[i].user->id = tempUser->id;
+        }
+    }
 }
 
 void printCard(Card* card){
