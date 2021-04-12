@@ -33,6 +33,12 @@ int main() {
                 scanf("%s", table);
                 createTable(table);
                 break;
+            case 5:
+                printf("Enter the description of the card you are looking for.\n");
+                char description[50];
+                scanf("%s", description);
+                printCard(description);
+                break;
             case 6:
                 printf("Enter the username u are lokking for.\n");
                 char uname[50];

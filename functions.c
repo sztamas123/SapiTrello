@@ -98,8 +98,9 @@ Card* createCard(char* description){
     card->description = (char*)calloc(50,sizeof(char));
     card->status = (char*)calloc(15,sizeof(char));
     card->id = (int*)calloc(100,sizeof(int));
-    card->description = description;
-    card->status = "TO DO";
+    CARDS[cardCount].description = description;
+    CARDS[cardCount].status = "TO DO";
+    cardCount++;
 }
 
 void changeStatusDoing(Card* card){
@@ -136,12 +137,15 @@ void addUserToCard(char* user, char* card){
     }
 }
 
-void printCard(Card* card){
-    printf("Card description: %s", card->description);
-    printf("\n");
-    printf("User working on this card: %s", card->user->username);
-    printf(" %i ", card->user->id);
-    printf("\n");
-    printf("Card status: %s", card->status);
-    printf("\n");
+void printCard(char* description){
+    for (int i = 0; i < 100; ++i) {
+        if(strcmp(CARDS[i].description, description) == 0){
+            printf("Card description: %s \n", CARDS[i].description);
+            printf("Card status: %s \n", CARDS[i].status);
+            printf("User working on this card: %s \n", CARDS[i].user->username);
+            break;
+        }
+        return;
+    }
 }
+

@@ -43,7 +43,7 @@ void changeStatusDoing(Card*);
 void changeStatusDone(Card*);
 void changeStatusTodo(Card*);
 void getCardStatus(Card*);
-void printCard(Card*);
+void printCard(char*);
 
 
 
