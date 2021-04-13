@@ -4,32 +4,41 @@
 #include <string.h>
 #include "functions.h"
 
-User USERS[100];
-Card CARDS[100];
-Table TABLES[25];
+User* USERS;
+Card* CARDS;
+Table* TABLES;
 int userCount = 0;
 int cardCount = 0;
 int tableCount = 0;
 
-User* createUser(char* username){
-    User* user = (User*)calloc(1,sizeof(User));
-    user->username = (char*)calloc(50,sizeof(char));
-    srand(time(0));
-    USERS[userCount].username = username;
-    USERS[userCount].id = rand() % 100;
+void init(){
+    USERS = (User*) calloc(100,sizeof(User));
+    CARDS = (Card*) calloc(100,sizeof(Card));
+    TABLES = (Table*) calloc(100,sizeof(Table));
+}
+
+User* createUser(char* uname){
+    User user; //(User*)calloc(1,sizeof(User));
+    user.username = (char*)calloc(50,sizeof(char));
+    user.username = uname;
+    user.id = userCount + 1;
+    USERS[userCount] = user;
     userCount++;
 }
 
-void printUser(char* username){
-    for (int i = 0; i < 100; ++i) {
-        if(strcmp(USERS[i].username, username) == 0){
+void printUser(){// ide majd lesz parameter csak kiszedtem teszteles miatt
+    for (int i = 0; i < userCount; ++i) {
+        printf("Name: %s ", USERS[i].username);
+        printf("\n");
+        printf("ID: %i ", USERS[i].id);
+        printf("\n");
+        /*if(strcmp(USERS[i].username, username) == 0){
             printf("Name: %s ", USERS[i].username);
             printf("\n");
             printf("ID: %i ", USERS[i].id);
             printf("\n");
             break;
-        }
-        return;
+        }*/
     }
 
 }
@@ -97,29 +106,41 @@ Card* createCard(char* description){
     card->user = (User*)calloc(1,sizeof(User));
     card->description = (char*)calloc(50,sizeof(char));
     card->status = (char*)calloc(15,sizeof(char));
-    card->id = (int*)calloc(100,sizeof(int));
     CARDS[cardCount].description = description;
     CARDS[cardCount].status = "TO DO";
     cardCount++;
 }
 
-void changeStatusDoing(Card* card){
-    card->status = "DOING";
+void getCardStatus(char* card){
+    for (int i = 0; i < 100; ++i) {
+        if(strcmp(CARDS[i].description, card) == 0){
+            printf("Status of the card: \n%s", CARDS[i].status);
+        }
+    }
+}
+void changeStatusDoing(char* cardsa){
+    for (int i = 0; i < 100; ++i) {
+        if(strcmp(CARDS[i].description, cardsa) == 0){
+            CARDS[i].description = "DOING";
+        }
+    }
 }
 
-void changeStatusDone(Card* card){
-    card->status = "DONE";
+void changeStatusDone(char* card){
+    for (int i = 0; i < 100; ++i) {
+        if(strcmp(CARDS[i].description, card) == 0){
+            CARDS[i].description = "DONE";
+        }
+    }
 }
 
-void changeStatusTodo(Card* card){
-    card->status = "TO DO";
+void changeStatusTodo(char* card){
+    for (int i = 0; i < 100; ++i) {
+        if(strcmp(CARDS[i].description, card) == 0){
+            CARDS[i].description = "TO DO";
+        }
+    }
 }
-
-void getCardStatus(Card* card){
-    printf("Status of the card: %s", card->status);
-    printf("\n");
-}
-
 
 void addUserToCard(char* user, char* card){
     User* tempUser;
@@ -137,15 +158,25 @@ void addUserToCard(char* user, char* card){
     }
 }
 
+
 void printCard(char* description){
-    for (int i = 0; i < 100; ++i) {
+    int i;
+    printf("%d\n", cardCount);
+    for (i = 0; i < cardCount; ++i) {
+        printf("%s /// %s \n", CARDS[i].description, description);
         if(strcmp(CARDS[i].description, description) == 0){
-            printf("Card description: %s \n", CARDS[i].description);
-            printf("Card status: %s \n", CARDS[i].status);
-            printf("User working on this card: %s \n", CARDS[i].user->username);
+           // printf("Card description: %s \n", CARDS[i].description);
+            //printf("Card status: %s \n", CARDS[i].status);
+            //printf("User working on this card: %s \n", CARDS[i].user->username);
+            if(CARDS[i].user == NULL)
+                printf("NULLA");
+            if(CARDS[i].user->username == NULL)
+                printf("hamis");
             break;
         }
-        return;
+        //printf("\n%d :%s\n", i, CARDS[i].description);
+
     }
+    printf("Lejart");
 }
 

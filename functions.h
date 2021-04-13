@@ -10,6 +10,7 @@
 #include <time.h>
 #include <stdlib.h>
 
+
 typedef struct {
     char* username;
     int id;
@@ -31,19 +32,21 @@ typedef struct {
 }Table;
 
 
+
 User* createUser(char*);
-void printUser(char*);
+void printUser();
 Table* createTable(char*);
 void printTable(Table*);
 Card* createCard(char*);
 void addUserToTable(User*, Table*);
 void addCardToTable(Card*, Table*);
 void addUserToCard(char*, char*);
-void changeStatusDoing(Card*);
-void changeStatusDone(Card*);
-void changeStatusTodo(Card*);
-void getCardStatus(Card*);
+void changeStatusDoing(char*);
+void changeStatusDone(char*);
+void changeStatusTodo(char*);
+void getCardStatus(char*);
 void printCard(char*);
+void init();
 
 
 
