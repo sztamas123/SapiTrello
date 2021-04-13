@@ -54,8 +54,7 @@ int main() {
                 printf("Enter the username u are looking for.\n");
                 char unam[50];
                 scanf("%s", unam);
-                printf("sssssssssssssssssssssssss");
-                printUser();
+                printUser(unam);
                 break;
             case 4:
                 printf("Enter the username of the user that you want to add to a card.\n");
@@ -67,12 +66,19 @@ int main() {
                 addUserToCard(u, cardname);
                 break;
             case 7:
-
+                printf("Enter the username of the user that you want to add.\n");
+                char u1[25];
+                scanf("%s", u1);
+                printf("Enter card name.\n");
+                char c1[25];
+                scanf("%s", c1);
+                addUserToCard(u1,c1);
+                break;
             case 8:
                 printf("Enter card name that you want to change.\n");
                 char cna[25];
                 scanf("%s", cna);
-                changeStatusDoing(cna);
+                getCardStatus(cna);
                 break;
             case 9:
                 printf("Enter card name that you want to change.\n");

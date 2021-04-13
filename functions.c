@@ -17,28 +17,34 @@ void init(){
     TABLES = (Table*) calloc(100,sizeof(Table));
 }
 
-User* createUser(char* uname){
-    User user; //(User*)calloc(1,sizeof(User));
+void createUser(char* uname){
+    User user;
     user.username = (char*)calloc(50,sizeof(char));
-    user.username = uname;
+    strcpy(user.username,uname);
     user.id = userCount + 1;
     USERS[userCount] = user;
     userCount++;
 }
 
-void printUser(){// ide majd lesz parameter csak kiszedtem teszteles miatt
+Card* createCard(char* description){
+    Card* card = (Card*)calloc(1,sizeof(Card));
+    card->user = (User*)calloc(1,sizeof(User));
+    card->description = (char*)calloc(50,sizeof(char));
+    card->status = (char*)calloc(15,sizeof(char));
+    CARDS[cardCount].description = description;
+    CARDS[cardCount].status = "TO DO";
+    cardCount++;
+}
+
+void printUser(char* unam){
     for (int i = 0; i < userCount; ++i) {
-        printf("Name: %s ", USERS[i].username);
-        printf("\n");
-        printf("ID: %i ", USERS[i].id);
-        printf("\n");
-        /*if(strcmp(USERS[i].username, username) == 0){
+        if(strcmp(USERS[i].username, unam) == 0){
             printf("Name: %s ", USERS[i].username);
             printf("\n");
             printf("ID: %i ", USERS[i].id);
             printf("\n");
             break;
-        }*/
+        }
     }
 
 }
@@ -46,7 +52,7 @@ void printUser(){// ide majd lesz parameter csak kiszedtem teszteles miatt
 Table* createTable(char* tableName){
     Table* table = (Table*)calloc(1,sizeof(Table));
     table->name = (char*)calloc(50,sizeof(char));
-    table->name = tableName;
+    strcpy(table->name, tableName);
     table->users = (User*)calloc(50,sizeof(User));
     table->cards = (Card*)calloc(50,sizeof(Card));
     table->numberOfUsers = (int*)calloc(100,sizeof(int));
@@ -93,7 +99,7 @@ void printTable(Table* table){
         printf("\n");
         printf("Card status: %s", table->cards[i].status);
         printf("\n");
-       // printf("User working on this card: %s", table->cards[i].user->username ); nem megy ez a sor
+        // printf("User working on this card: %s", table->cards[i].user->username ); nem megy ez a sor
 
     }
     printf("\n");
@@ -101,35 +107,26 @@ void printTable(Table* table){
 }
 
 
-Card* createCard(char* description){
-    Card* card = (Card*)calloc(1,sizeof(Card));
-    card->user = (User*)calloc(1,sizeof(User));
-    card->description = (char*)calloc(50,sizeof(char));
-    card->status = (char*)calloc(15,sizeof(char));
-    CARDS[cardCount].description = description;
-    CARDS[cardCount].status = "TO DO";
-    cardCount++;
-}
-
 void getCardStatus(char* card){
-    for (int i = 0; i < 100; ++i) {
+    for (int i = 0; i < cardCount; ++i) {
         if(strcmp(CARDS[i].description, card) == 0){
-            printf("Status of the card: \n%s", CARDS[i].status);
+            printf("Status of the card: %s/n", CARDS[i].status);
         }
     }
 }
-void changeStatusDoing(char* cardsa){
-    for (int i = 0; i < 100; ++i) {
-        if(strcmp(CARDS[i].description, cardsa) == 0){
-            CARDS[i].description = "DOING";
+void changeStatusDoing(char* card){
+    for (int i = 0; i < cardCount; ++i) {
+        if(strcmp(CARDS[i].description, card) == 0){
+            strcpy(CARDS[i].status, "DOING");
+            //CARDS[i].status = "DOING";
         }
     }
 }
 
 void changeStatusDone(char* card){
-    for (int i = 0; i < 100; ++i) {
+    for (int i = 0; i < cardCount; ++i) {
         if(strcmp(CARDS[i].description, card) == 0){
-            CARDS[i].description = "DONE";
+            strcpy(CARDS[i].status, "DONE");
         }
     }
 }
@@ -137,23 +134,23 @@ void changeStatusDone(char* card){
 void changeStatusTodo(char* card){
     for (int i = 0; i < 100; ++i) {
         if(strcmp(CARDS[i].description, card) == 0){
-            CARDS[i].description = "TO DO";
+            strcpy(CARDS[i].status, "TO DO");
         }
     }
 }
 
 void addUserToCard(char* user, char* card){
-    User* tempUser;
-    for (int i = 0; i < 100; ++i) {
+    User tempUser;
+    for (int i = 0; i < userCount; ++i) {
         if(strcmp(USERS[i].username, user) == 0){
-            tempUser->username = USERS[i].username;
-            tempUser->id = USERS[i].id;
+            strcpy(tempUser.username, USERS[i].username);
+            tempUser.id = USERS[i].id;
         }
     }
-    for (int i = 0; i < 100; ++i) {
-        if(strcmp(CARDS[i].description, card) == 0 && CARDS[i].id == 0){
-            CARDS[i].user->username = tempUser->username;
-            CARDS[i].user->id = tempUser->id;
+    for (int i = 0; i < cardCount; ++i) {
+        if(strcmp(CARDS[i].description, card) == 0){
+            strcpy(CARDS[i].user->username, tempUser.username);
+            CARDS[i].user->id = tempUser.id;
         }
     }
 }
@@ -161,22 +158,12 @@ void addUserToCard(char* user, char* card){
 
 void printCard(char* description){
     int i;
-    printf("%d\n", cardCount);
     for (i = 0; i < cardCount; ++i) {
-        printf("%s /// %s \n", CARDS[i].description, description);
         if(strcmp(CARDS[i].description, description) == 0){
-           // printf("Card description: %s \n", CARDS[i].description);
-            //printf("Card status: %s \n", CARDS[i].status);
-            //printf("User working on this card: %s \n", CARDS[i].user->username);
-            if(CARDS[i].user == NULL)
-                printf("NULLA");
-            if(CARDS[i].user->username == NULL)
-                printf("hamis");
+            printf("Card description: %s \n", CARDS[i].description);
+            printf("Card status: %s \n", CARDS[i].status);
+            //printf("User working on this card: %s \n", CARDS[i].user->username); //ha ures sigsegv
             break;
         }
-        //printf("\n%d :%s\n", i, CARDS[i].description);
-
     }
-    printf("Lejart");
 }
-

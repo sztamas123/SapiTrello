@@ -33,8 +33,8 @@ typedef struct {
 
 
 
-User* createUser(char*);
-void printUser();
+void createUser(char*);
+void printUser(char*);
 Table* createTable(char*);
 void printTable(Table*);
 Card* createCard(char*);
