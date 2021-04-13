@@ -28,11 +28,12 @@ void createUser(char* uname){
 
 Card* createCard(char* description){
     Card* card = (Card*)calloc(1,sizeof(Card));
-    card->user = (User*)calloc(1,sizeof(User));
+    User* user = NULL;
     card->description = (char*)calloc(50,sizeof(char));
     card->status = (char*)calloc(15,sizeof(char));
     CARDS[cardCount].description = description;
     CARDS[cardCount].status = "TO DO";
+    CARDS[cardCount].id = 0;
     cardCount++;
 }
 
@@ -46,7 +47,6 @@ void printUser(char* unam){
             break;
         }
     }
-
 }
 
 Table* createTable(char* tableName){
@@ -126,7 +126,8 @@ void changeStatusDoing(char* card){
 void changeStatusDone(char* card){
     for (int i = 0; i < cardCount; ++i) {
         if(strcmp(CARDS[i].description, card) == 0){
-            strcpy(CARDS[i].status, "DONE");
+            CARDS[i].status = "DONE";
+            //strcpy(CARDS[i].status, "DONE");
         }
     }
 }
@@ -140,17 +141,19 @@ void changeStatusTodo(char* card){
 }
 
 void addUserToCard(char* user, char* card){
-    User tempUser;
-    for (int i = 0; i < userCount; ++i) {
+    //User tempUser;
+    int i;
+    for (i = 0; i < userCount; ++i) {
         if(strcmp(USERS[i].username, user) == 0){
-            strcpy(tempUser.username, USERS[i].username);
-            tempUser.id = USERS[i].id;
+            //strcpy(tempUser.username, USERS[i].username);
+            //tempUser.id = USERS[i].id;
+            break;
         }
     }
-    for (int i = 0; i < cardCount; ++i) {
-        if(strcmp(CARDS[i].description, card) == 0){
-            strcpy(CARDS[i].user->username, tempUser.username);
-            CARDS[i].user->id = tempUser.id;
+    for (int j = 0; j < cardCount; ++j) {
+        if(strcmp(CARDS[j].description, card) == 0){
+            //strcpy(CARDS[j].user->username, USERS[i].username);
+            CARDS[j].user = &USERS[i];
         }
     }
 }

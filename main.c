@@ -3,6 +3,8 @@
 int main() {
     int choice;
     srand(time(0));
+    setbuf(stdout, 0);
+
 
     init();
     while(1){
@@ -67,10 +69,10 @@ int main() {
                 break;
             case 7:
                 printf("Enter the username of the user that you want to add.\n");
-                char u1[25];
+                char u1[50];
                 scanf("%s", u1);
                 printf("Enter card name.\n");
-                char c1[25];
+                char c1[50];
                 scanf("%s", c1);
                 addUserToCard(u1,c1);
                 break;
