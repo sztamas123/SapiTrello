@@ -6,22 +6,26 @@ int main() {
     setbuf(stdout, 0);
     init();
 
+    //Gyorsabb teszteles celjabol itthagyom ezeket
+
+    createUser("User1");
+    createUser("User2");
+    createUser("User3");
+    createTable("T");
     createCard("C++");
+    createCard("Pascal");
     createCard("Java");
-    createCard("Python");
-    createUser("Tom");
-    createUser("Jerry");
-    createTable("Prog");
-
-    addUserToCard("Tom", "C++");
-    addUserToCard("Jerry", "Java");
-    addCardToTable("C++", "Programming");
-    addCardToTable("Python", "Programming");
-    addUserToTable("Tom", "table");
-    //addUserToTable("Jerry", "table");
+    addUserToCard("User1", "C++");
+    addUserToCard("User2", "Java");
+    addCardToTable("C++", "T");
+    addCardToTable("Pascal", "T");
+    addCardToTable("Java", "T");
+    addUserToTable("User1", "T");
+    addUserToTable("User2", "T");
+    addUserToTable("User3", "T");
+    changeCardName("C++", "C");
 
 
-    //removeCard("card", "table");
 
     while(1){
         system("clear");
@@ -39,7 +43,8 @@ int main() {
         printf("Press 11. to change card status to done.\n");
         printf("Press 12. to change card status to to do.\n");
         printf("Press 13. to get current status of a card.\n");
-        printf("Press 14. to change card name.\n");
+        printf("Press 14. to delete a card from table.\n");
+        printf("Press 15. to change card name.\n");
 
 
 
@@ -116,34 +121,52 @@ int main() {
                 printf("Enter card name that you want to change to 'DOING'.\n");
                 char cna[25];
                 scanf("%s", cna);
-                changeStatusDoing(cna);
+                printf("Enter name of the table containing the card.\n");
+                char t4[50];
+                scanf("%s", t4);
+                changeStatusDoing(cna, t4);
                 break;
             case 11:
                 printf("Enter card name that you want to change to 'DONE'.\n");
                 char cnam[25];
                 scanf("%s", cnam);
-                changeStatusDone(cnam);
+                printf("Enter name of the table containing the card.\n");
+                char t5[25];
+                scanf("%s", t5);
+                changeStatusDone(cnam, t5);
                 break;
             case 12:
                 printf("Enter card name that you want to change to 'TO DO'.\n");
                 char cnm[25];
                 scanf("%s", cnm);
-                changeStatusDone(cnm);
+                printf("Enter name of the table containing the card.\n");
+                char t6[25];
+                scanf("%s", t6);
+                changeStatusTodo(cnm, t6);
                 break;
             case 13:
-                printf("Enter card name that.\n");
+                printf("Enter card name.\n");
                 char cn2[50];
                 scanf("%s", cn2);
                 getCardStatus(cn2);
                 break;
             case 14:
-                printf("Enter card name that you want to change.\n");
+                printf("Enter card name that you want to delete.\n");
                 char cn3[50];
                 scanf("%s", cn3);
+                printf("Enter the name of the table containing the card.\n");
+                char tn[50];
+                scanf("%s", tn);
+                removeCard(cn3, tn);
+                break;
+            case 15:
+                printf("Enter card name that you want to change.\n");
+                char cn4[50];
+                scanf("%s", cn4);
                 printf("Enter new name.\n");
                 char nn[50];
                 scanf("%s", nn);
-                changeCardName(cn3, nn);
+                changeCardName(cn4, nn);
                 break;
             default:
                 printf("\nInvalid Choice :-(\n");

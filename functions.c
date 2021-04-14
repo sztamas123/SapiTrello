@@ -28,7 +28,6 @@ void createUser(char* uname){
 
 void createCard(char* description){
     Card card;
-    //User* user = NULL;
     card.description = (char*)calloc(50,sizeof(char));
     card.status = (char*)calloc(15,sizeof(char));
     card.description = description;
@@ -86,7 +85,7 @@ void addUserToTable(char* user, char* tablename) {
         }
     }
     for (int j = 0; j < tableCount; ++j) {
-        if (strcmp(TABLES[i].name, tablename) == 0) {
+        if (strcmp(TABLES[j].name, tablename) == 0) {
             TABLES[j].users[TABLES[j].numberOfUsers] = USERS[i];
             TABLES[j].numberOfUsers++;
             break;
@@ -134,7 +133,8 @@ void printTable(char* tablename){
                 printf("\n");
                 printf("Card status: %s", TABLES[s].cards[i].status);
                 printf("\n");
-                printf("User working on this card: %s\n", TABLES[s].cards[i].user.username );
+                if(strcmp(TABLES[s].cards[i].user.username, "") != 0)
+                    printf("User working on this card: %s\n", TABLES[s].cards[i].user.username );
             }
             printf("\n");
             printf("\n");
@@ -150,26 +150,44 @@ void getCardStatus(char* card){
         }
     }
 }
-void changeStatusDoing(char* card){
-    for (int i = 0; i < cardCount; ++i) {
+void changeStatusDoing(char* card,char* table){
+    int i;
+    for (i = 0; i < cardCount; ++i) {
         if(strcmp(CARDS[i].description, card) == 0){
-            CARDS[i].status = "DOING";
+            break;
+        }
+    }
+    for (int j = 0; j < tableCount; ++j) {
+        if(strcmp(TABLES[j].name, table) == 0){
+            TABLES[j].cards[i].status = "DOING";
         }
     }
 }
 
-void changeStatusDone(char* card){
-    for (int i = 0; i < cardCount; ++i) {
+void changeStatusDone(char* card, char* table){
+    int i;
+    for (i = 0; i < cardCount; ++i) {
         if(strcmp(CARDS[i].description, card) == 0){
-            CARDS[i].status = "DONE";
+            break;
+        }
+    }
+    for (int j = 0; j < tableCount; ++j) {
+        if(strcmp(TABLES[j].name, table) == 0){
+            TABLES[j].cards[i].status = "DONE";
         }
     }
 }
 
-void changeStatusTodo(char* card){
-    for (int i = 0; i < 100; ++i) {
+void changeStatusTodo(char* card, char* table){
+    int i;
+    for (i = 0; i < cardCount; ++i) {
         if(strcmp(CARDS[i].description, card) == 0){
-            CARDS[i].status = "TO DO";
+            break;
+        }
+    }
+    for (int j = 0; j < tableCount; ++j) {
+        if(strcmp(TABLES[j].name, table) == 0){
+            TABLES[j].cards[i].status = "TO DO";
         }
     }
 }
@@ -197,20 +215,23 @@ void changeCardName(char* oldName, char* newName){
 }
 
 void removeCard(char* cardName, char* tableName){
-    int i, z;
+    int i;
     for (i = 0; i < tableCount; ++i) {
         if (strcmp(TABLES[i].name, tableName) == 0) {
             break;
         }
     }
-    for (int z = 0; z < TABLES[i].numberOfCards; ++z) {
+    int z;
+    for (z = 0; z < TABLES[i].numberOfCards; ++z) {
         if(strcmp(TABLES[i].cards[z].description, cardName) == 0){
             break;
         }
     }
-    for (int j = z; j < TABLES[i].numberOfCards - 1; ++j) {
+    int j;
+    for (j = z; j < TABLES[i].numberOfCards - 1; ++j) {
         TABLES[i].cards[j] = TABLES[i].cards[j+1];
     }
-    free(TABLES[i].cards);
-    cardCount--;
+    //free(TABLES[i].cards[j]);
+    TABLES[i].numberOfCards--;
+    printf("Card deleted succesfully.\n");
 }
