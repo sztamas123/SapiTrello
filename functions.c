@@ -42,8 +42,8 @@ void createTable(char* tableName){
     Table table;
     table.name = (char*)calloc(50,sizeof(char));
     strcpy(table.name, tableName);
-    table.users = (User**)calloc(50,sizeof(User*));
-    table.cards = (Card**)calloc(50,sizeof(Card*));
+    table.users = (User*)calloc(50,sizeof(User));
+    table.cards = (Card*)calloc(50,sizeof(Card));
     table.numberOfUsers = 0;
     table.numberOfCards = 0;
     TABLES[tableCount] = table;
@@ -71,7 +71,7 @@ void addUserToCard(char* user, char* card){
     }
     for (int j = 0; j < cardCount; ++j) {
         if(strcmp(CARDS[j].description, card) == 0){
-            CARDS[j].user = &USERS[i];
+            CARDS[j].user = USERS[i];
             CARDS[j].id = 1;
             break;
         }
@@ -87,7 +87,7 @@ void addUserToTable(char* user, char* tablename) {
     }
     for (int j = 0; j < tableCount; ++j) {
         if (strcmp(TABLES[i].name, tablename) == 0) {
-            TABLES[j].users[TABLES[j].numberOfUsers] = &USERS[i];
+            TABLES[j].users[TABLES[j].numberOfUsers] = USERS[i];
             TABLES[j].numberOfUsers++;
             break;
         }
@@ -103,7 +103,7 @@ void addCardToTable(char* card, char* tablename){
     }
     for (int j = 0; j < tableCount; ++j) {
         if (strcmp(TABLES[i].name, tablename) == 0) {
-            TABLES[j].cards[TABLES[j].numberOfCards] = &CARDS[i];
+            TABLES[j].cards[TABLES[j].numberOfCards] = CARDS[i];
             TABLES[j].numberOfCards++;
             break;
         }
@@ -118,8 +118,8 @@ void printTable(char* tablename){
             printf("Nr. of users: %i\n", TABLES[s].numberOfUsers);
             printf("Users: \n");
             for(int i = 0;i < TABLES[s].numberOfUsers ; i++){
-                printf("Name: %s ", TABLES[s].users[i]->username);
-                printf("Id: %i ", TABLES[s].users[i]->id);
+                printf("Name: %s ", TABLES[s].users[i].username);
+                printf("Id: %i ", TABLES[s].users[i].id);
                 printf(",");
             }
             printf("\n");
@@ -127,11 +127,11 @@ void printTable(char* tablename){
             printf("\n");
 
             for (int i = 0; i < TABLES[s].numberOfCards; ++i) {
-                printf("Card description: %s ", TABLES[s].cards[i]->description);
+                printf("Card description: %s ", TABLES[s].cards[i].description);
                 printf("\n");
-                printf("Card status: %s", TABLES[s].cards[i]->status);
+                printf("Card status: %s", TABLES[s].cards[i].status);
                 printf("\n");
-                printf("User working on this card: %s", TABLES[s].cards[i]->user->username );
+                printf("User working on this card: %s", TABLES[s].cards[i].user.username );
             }
             printf("\n");
         }
@@ -177,7 +177,7 @@ void printCard(char* description){
             printf("Card description: %s \n", CARDS[i].description);
             printf("Card status: %s \n", CARDS[i].status);
             if(CARDS[i].id == 1)
-                printf("User working on this card: %s \n", CARDS[i].user->username);
+                printf("User working on this card: %s \n", CARDS[i].user.username);
             break;
         }
     }
@@ -200,13 +200,13 @@ void removeCard(char* cardName, char* tableName){
         }
     }
     for (int z = 0; z < TABLES[i].numberOfCards; ++z) {
-        if(strcmp(TABLES[i].cards[z]->description, cardName) == 0){
+        if(strcmp(TABLES[i].cards[z].description, cardName) == 0){
             break;
         }
     }
     for (int j = z; j < TABLES[i].numberOfCards - 1; ++j) {
         TABLES[i].cards[j] = TABLES[i].cards[j+1];
     }
-    free(TABLES[i].cards[cardCount]);
+    free(TABLES[i].cards);
     cardCount--;
 }

@@ -19,7 +19,7 @@ int main() {
 
     //changeCardName("card", "kartya")
 
-    removeCard("card", "table");
+    //removeCard("card", "table");
 
     while(1){
         system("CLS");

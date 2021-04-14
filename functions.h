@@ -17,7 +17,7 @@ typedef struct {
 }User;
 
 typedef struct {
-    User* user;
+    User user;
     char* description;
     int id;
     char* status;
@@ -27,8 +27,8 @@ typedef struct {
     char* name;
     int numberOfUsers;
     int numberOfCards;
-    User** users;
-    Card** cards;
+    User* users;
+    Card* cards;
 }Table;
 
 
