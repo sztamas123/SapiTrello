@@ -77,7 +77,7 @@ void addUserToCard(char* user, char* card){
         }
     }
 }
-//hiba
+
 void addUserToTable(char* user, char* tablename) {
     int i;
     for (i = 0; i < userCount; ++i) {
@@ -93,7 +93,7 @@ void addUserToTable(char* user, char* tablename) {
         }
     }
 }
-//hiba
+
 void addCardToTable(char* card, char* tablename){
     int i;
     for (i = 0; i < cardCount; ++i) {
@@ -102,7 +102,7 @@ void addCardToTable(char* card, char* tablename){
         }
     }
     for (int j = 0; j < tableCount; ++j) {
-        if (strcmp(TABLES[i].name, tablename) == 0) {
+        if (strcmp(TABLES[j].name, tablename) == 0) {
             TABLES[j].cards[TABLES[j].numberOfCards] = CARDS[i];
             TABLES[j].numberOfCards++;
             break;
@@ -114,15 +114,18 @@ void printTable(char* tablename){
     for (int s = 0; s < tableCount; ++s) {
         if(strcmp(TABLES[s].name, tablename) == 0){
             printf("Table details: \n");
-            printf("Name: %s", TABLES[s].name);
+            printf("------------------------------------------ \n");
+            printf("Name: %s \n", TABLES[s].name);
             printf("Nr. of users: %i\n", TABLES[s].numberOfUsers);
             printf("Users: \n");
+            printf("------------------------------------------ \n");
             for(int i = 0;i < TABLES[s].numberOfUsers ; i++){
                 printf("Name: %s ", TABLES[s].users[i].username);
                 printf("Id: %i ", TABLES[s].users[i].id);
-                printf(",");
+                printf("| ");
             }
             printf("\n");
+            printf("------------------------------------------ \n");
             printf("Number of cards on this table: %i", TABLES[s].numberOfCards);
             printf("\n");
 
@@ -131,8 +134,9 @@ void printTable(char* tablename){
                 printf("\n");
                 printf("Card status: %s", TABLES[s].cards[i].status);
                 printf("\n");
-                printf("User working on this card: %s", TABLES[s].cards[i].user.username );
+                printf("User working on this card: %s\n", TABLES[s].cards[i].user.username );
             }
+            printf("\n");
             printf("\n");
         }
     }
