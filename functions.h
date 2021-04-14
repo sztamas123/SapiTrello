@@ -27,27 +27,28 @@ typedef struct {
     char* name;
     int numberOfUsers;
     int numberOfCards;
-    User* users;
-    Card* cards;
+    User** users;
+    Card** cards;
 }Table;
 
 
 
 void createUser(char*);
 void printUser(char*);
-Table* createTable(char*);
-void printTable(Table*);
-Card* createCard(char*);
-void addUserToTable(User*, Table*);
-void addCardToTable(Card*, Table*);
+void createTable(char*);
+void printTable(char*);
+void createCard(char*);
+void addUserToTable(char*, char*);
+void addCardToTable(char*, char*);
 void addUserToCard(char*, char*);
+void changeCardName(char*, char*);
 void changeStatusDoing(char*);
 void changeStatusDone(char*);
 void changeStatusTodo(char*);
 void getCardStatus(char*);
 void printCard(char*);
 void init();
-
+void removeCard(char*, char*);
 
 
 

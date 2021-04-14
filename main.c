@@ -4,9 +4,23 @@ int main() {
     int choice;
     srand(time(0));
     setbuf(stdout, 0);
-
-
     init();
+
+    createCard("card");
+    createCard("card2");
+    createUser("user1");
+    createUser("user2");
+    createTable("table");
+
+    addUserToCard("user1", "card");
+    addCardToTable("card", "table");
+    addUserToTable("user1", "table");
+    //addUserToTable("user2", "table");
+
+    //changeCardName("card", "kartya")
+
+    removeCard("card", "table");
+
     while(1){
         system("CLS");
         printf("Press 0. to exit.\n");
@@ -20,6 +34,7 @@ int main() {
         printf("Press 8. to change card status to doing.\n");
         printf("Press 9. to change card status to done.\n");
         printf("Press 10. to change card status to to do.\n");
+        printf("Press 11. to add user to table.\n");
 
 
         scanf("%d", &choice);
@@ -59,13 +74,10 @@ int main() {
                 printUser(unam);
                 break;
             case 4:
-                printf("Enter the username of the user that you want to add to a card.\n");
-                char u[50];
-                scanf("%s", u);
-                printf("Enter the name of the card.\n");
-                char cardname[50];
-                scanf("%s", cardname);
-                addUserToCard(u, cardname);
+                printf("Enter table name.");
+                char t1[50];
+                scanf("%s", t1);
+                printTable(t1);
                 break;
             case 7:
                 printf("Enter the username of the user that you want to add.\n");
@@ -80,7 +92,7 @@ int main() {
                 printf("Enter card name that you want to change.\n");
                 char cna[25];
                 scanf("%s", cna);
-                getCardStatus(cna);
+                changeStatusDoing(cna);
                 break;
             case 9:
                 printf("Enter card name that you want to change.\n");
@@ -93,6 +105,15 @@ int main() {
                 char cnm[25];
                 scanf("%s", cnm);
                 changeStatusDone(cnm);
+                break;
+            case 11:
+                printf("Enter username.");
+                char u2[50];
+                scanf("%s", u2);
+                printf("Enter table name.");
+                char t2[50];
+                scanf("%s", t2);
+                addUserToTable(u2, t2);
                 break;
             default:
                 printf("\nInvalid Choice :-(\n");
