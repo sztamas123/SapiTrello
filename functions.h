@@ -49,6 +49,8 @@ void getCardStatus(char*);
 void printCard(char*);
 void init();
 void removeCard(char*, char*);
+void printAllUsers();
+void printAllCards();
 
 
 

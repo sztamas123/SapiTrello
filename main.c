@@ -7,44 +7,50 @@ int main() {
     init();
 
     //Gyorsabb teszteles celjabol itthagyom ezeket
-
+/*
     createUser("User1");
     createUser("User2");
     createUser("User3");
+    createUser("Tom");
     createTable("T");
     createCard("C++");
     createCard("Pascal");
     createCard("Java");
+    createCard("Card");
     addUserToCard("User1", "C++");
+    addUserToCard("Tom", "Card");
     addUserToCard("User2", "Java");
     addCardToTable("C++", "T");
     addCardToTable("Pascal", "T");
+    //addCardToTable("Card", "T");
     addCardToTable("Java", "T");
     addUserToTable("User1", "T");
     addUserToTable("User2", "T");
     addUserToTable("User3", "T");
     changeCardName("C++", "C");
-
-
+    printAllCards();
+*/
 
     while(1){
         system("clear");
         printf("Press 0. to exit.\n");
         printf("Press 1. to create a user.\n");
-        printf("Press 2. to create a card.\n");
+        printf("Press 2. to create a card.\n");// valamiert ha switchben hozom letre a cardot nem tudom beletenni a tablebe, nem talalom hogy miert
         printf("Press 3. to create a table.\n");
         printf("Press 4. to see a table.\n");
         printf("Press 5. to see a card.\n");
         printf("Press 6. to see details about an user.\n");
         printf("Press 7. to add user to a card.\n");
         printf("Press 8. to add user to a table.\n");
-        printf("Press 9. to add card to a table.\n");
+        printf("Press 9. to add card to a table.\n");// ahogy irtam fentebb is, ha billentyuzetrol olvasom be a cardot valamiert hibasan teszi bele
         printf("Press 10. to change card status to doing.\n");
         printf("Press 11. to change card status to done.\n");
         printf("Press 12. to change card status to to do.\n");
         printf("Press 13. to get current status of a card.\n");
         printf("Press 14. to delete a card from table.\n");
-        printf("Press 15. to change card name.\n");
+        printf("Press 15. to change card name.\n");// nem mukodik
+        printf("Press 16. to see all users.\n");
+        printf("Press 17. to see all cards.\n");
 
 
 
@@ -115,7 +121,7 @@ int main() {
                 printf("Enter table name.\n");
                 char t3[50];
                 scanf("%s", t3);
-                addUserToTable(c2, t3);
+                addCardToTable(c2, t3);
                 break;
             case 10:
                 printf("Enter card name that you want to change to 'DOING'.\n");
@@ -168,11 +174,15 @@ int main() {
                 scanf("%s", nn);
                 changeCardName(cn4, nn);
                 break;
+            case 16:
+                printAllUsers();
+                break;
+            case 17:
+                printAllCards();
+                break;
             default:
                 printf("\nInvalid Choice :-(\n");
                 system("pause");
-
-
         }
     }
 

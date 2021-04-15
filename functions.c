@@ -52,12 +52,19 @@ void createTable(char* tableName){
 void printUser(char* unam){
     for (int i = 0; i < userCount; ++i) {
         if(strcmp(USERS[i].username, unam) == 0){
-            printf("Name: %s ", USERS[i].username);
-            printf("\n");
-            printf("ID: %i ", USERS[i].id);
-            printf("\n");
+            printf("Name: %s \n", USERS[i].username);
+            printf("ID: %i \n", USERS[i].id);
             break;
         }
+    }
+}
+
+void printAllUsers(){
+    printf("Users:\n");
+    for (int i = 0; i < userCount; ++i) {
+        printf("Name: %s \n", USERS[i].username);
+        printf("ID: %i \n", USERS[i].id);
+        printf("\n");
     }
 }
 
@@ -133,8 +140,7 @@ void printTable(char* tablename){
                 printf("\n");
                 printf("Card status: %s", TABLES[s].cards[i].status);
                 printf("\n");
-                if(strcmp(TABLES[s].cards[i].user.username, "") != 0)
-                    printf("User working on this card: %s\n", TABLES[s].cards[i].user.username );
+                printf("User working on this card: %s\n", TABLES[s].cards[i].user.username );
             }
             printf("\n");
             printf("\n");
@@ -202,6 +208,17 @@ void printCard(char* description){
                 printf("User working on this card: %s \n", CARDS[i].user.username);
             break;
         }
+    }
+}
+
+void printAllCards(){
+    printf("Cards: \n");
+    for (int i = 0; i < cardCount; ++i) {
+        printf("Card description: %s \n", CARDS[i].description);
+        printf("Card status: %s \n", CARDS[i].status);
+        if(CARDS[i].id == 1)
+            printf("User working on this card: %s \n", CARDS[i].user.username);
+        printf("\n");
     }
 }
 
